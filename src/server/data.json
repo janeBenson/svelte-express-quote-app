@@ -1,0 +1,161 @@
+[
+    {
+    "_id": "5a6ce86e2af929789500e7e4",
+    "sr": "Računarska nauka se tiče računara koliko i astronomija teleskopa.",
+    "en": "Computer Science is no more about computers than astronomy is about telescopes.",
+    "author": "Edsger W. Dijkstra",
+    "rating": 4.2,
+    "id": "5a6ce86e2af929789500e7e4"
+    },
+    {
+    "_id": "5a6ce86e2af929789500e7d7",
+    "sr": "Jednostavnost je preduslov za pouzdanost.",
+    "en": "Simplicity is prerequisite for reliability.",
+    "author": "Edsger W. Dijkstra",
+    "id": "5a6ce86e2af929789500e7d7"
+    },
+    {
+    "_id": "5a6ce86d2af929789500e7ca",
+    "sr": "Najveći izazov za programera je da se ne zbuni pred kompleksnošću sopstvene tvorevine.",
+    "en": "The computing scientist’s main challenge is not to get confused by the complexities of his own making.",
+    "author": "Edsger W. Dijkstra",
+    "rating": 4,
+    "id": "5a6ce86d2af929789500e7ca"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e7f3",
+    "sr": "Ako je debagovanje proces uklanjanja bagova, onda programiranje mora biti proces njihovog umetanja.",
+    "en": "If debugging is the process of removing software bugs, then programming must be the process of putting them in.",
+    "author": "Edsger W. Dijkstra",
+    "rating": 4.7,
+    "id": "5a6ce86f2af929789500e7f3"
+    },
+    {
+    "_id": "5a6ce86e2af929789500e7d9",
+    "sr": "Program je kao pesma: ne možete napisati pesmu bez pisanja. Ipak, ljudi govore o programiranju kao procesu proizvodnje i mere „programersku produktivnost“ u terminima „broja proizvedenih linija koda“. Na taj način oni su na pogrešnoj strani knjige: Mi uvek gledamo „broj ušteđenih linija koda“.",
+    "en": "A program is like a poem: you cannot write a poem without writing it. Yet people talk about programming as if it were a production process and measure „programmer productivity“ in terms of „number of lines of code produced“. In so doing they book that number on the wrong side of the ledger: We should always refer to „the number of lines of code spent“.",
+    "author": "Edsger W. Dijkstra",
+    "rating": 4.3,
+    "id": "5a6ce86e2af929789500e7d9"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e7f8",
+    "sr": "Postoje dva načina izgradnje softvera: Jedan je napraviti ga toliko prostim da očigledno nema nedostaka, a drugi je napraviti ga toliko komplikovanim da nema očiglednih nedostataka. Prva metoda je puno teža.",
+    "en": "There are two ways of constructing a software design: One way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies. The first method is far more difficult.",
+    "author": "Tony Hoare",
+    "rating": 4.1,
+    "id": "5a6ce86f2af929789500e7f8"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e807",
+    "sr": "Najbolji umovi moje generacije misle o tome kako naterati ljude da klikću reklame.",
+    "en": "The best minds of my generation are thinking about how to make people click ads.",
+    "author": "Jeff Hammerbacher",
+    "rating": 4.1,
+    "id": "5a6ce86f2af929789500e807"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e7f9",
+    "sr": "Alati koje koristimo imaju veliki uticaj na naše navike u razmišljanju, a samim tim i na našu sposobnost razmišljanja uopšte.",
+    "en": "The tools we use have a profound and devious influence on our thinking habits, and therefore on our thinking abilities.",
+    "author": "Edsger W. Dijkstra",
+    "rating": 4.9,
+    "id": "5a6ce86f2af929789500e7f9"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e7f5",
+    "sr": "Kako ubediti ljude da u programiranju jednostavnost i jasnoća — što matematičari zovu \"elegancija\" — nisu nepriuštiv luksuz, već ključna stvar koja odlučuje između uspeha i propasti? ",
+    "en": "How do we convince people that in programming simplicity and clarity — in short: what mathematicians call \"elegance\" — are not a dispensable luxury, but a crucial matter that decides between success and failure?",
+    "author": "Edsger W. Dijkstra",
+    "rating": 3.8,
+    "id": "5a6ce86f2af929789500e7f5"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e80b",
+    "sr": "Dodavanje ljudstva na projekat koji kasni dovodi do još većeg kašnjenja.",
+    "en": "Adding manpower to a late software project makes it later.",
+    "author": "Fred Brooks",
+    "rating": 4.9,
+    "id": "5a6ce86f2af929789500e80b"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e809",
+    "sr": "Ponekad postoji srebrni metak softverske produktivnosti. Ali treba da upucate pravu osobu.",
+    "en": "Sometimes there is a silver bullet for boosting software engineering productivity. But you need to shoot the right person.",
+    "author": "Michael Stal",
+    "rating": 3.4,
+    "id": "5a6ce86f2af929789500e809"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e815",
+    "sr": "Devet žena ne može roditi bebu za mesec dana.",
+    "en": "Nine women can't make a baby in one month.",
+    "author": "Fred Brooks",
+    "rating": 4.5,
+    "id": "5a6ce86f2af929789500e815"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e81a",
+    "sr": "Izbrisan kod je debagovan kod.",
+    "en": "Deleted code is debugged code.",
+    "author": "Jeff Sickel",
+    "rating": 4.9,
+    "id": "5a6ce86f2af929789500e81a"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e826",
+    "sr": "Kada si u dvojbi, koristi brutalnu silu.",
+    "en": "When in doubt, use brute force.",
+    "author": "Ken Thompson",
+    "rating": 4.2,
+    "id": "5a6ce86f2af929789500e826"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e814",
+    "sr": "Kada zadatak ne može biti podeljen zbog sekvencijalnih ograničenja, primena većeg napora nema uticaja na rokove. Nošenje trudnoće traje devet meseci, bez obzira koliko žena dodali.",
+    "en": "When a task cannot be partitioned because of sequential constraints, the application of more effort has no effect on the schedule. The bearing of a child takes nine months, no matter how many women are assigned.",
+    "author": "Fred Brooks",
+    "rating": 3.7,
+    "id": "5a6ce86f2af929789500e814"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e816",
+    "sr": "Ako svaki zadatak mora biti zasebno koordiniran sa svakim drugim, napor komunikacije raste n(n-1)/2. Tri radnika zahtevaju trostruko više međusobne komunikacije nego dva; četiri zahtevaju šestostruko više nego dva.",
+    "en": "If each part of the task must be separately coordinated with each other part, the effort increases as n(n-1)/2. Three workers require three times as much pairwise intercommunication as two; four require six times as much as two.",
+    "author": "Fred Brooks",
+    "rating": 4.5,
+    "id": "5a6ce86f2af929789500e816"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e818",
+    "sr": "Imati sistemskog arhitektu je najvažniji korak ka konceptualnom integritetu. Nakon držanja laboratorija softverskog inženjerstva više od 20 puta, počeo sam da insistiram da mali studentski timovi, već od četvoro ljudi, izaberu menadžera i arhitektu.",
+    "en": "Having a system architect is the most important single step toward conceptual integrity. After teaching a software engineering laboratory more than 20 times, I came to insist that student teams as small as four people choose a manager and a separate architect.",
+    "author": "Fred Brooks",
+    "rating": 4.5,
+    "id": "5a6ce86f2af929789500e818"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e80f",
+    "sr": "Programer, poput pesnika, radi tek neznatno udaljen od čiste misli. On gradi dvorce u vazduhu, od vazduha, stvarajući naporom mašte. Retki mediji stvaranja su tako gipki, tako jednostavni za poliranje i preradu, tako podesni za realizaciju veličanstvene konceptualne tvorevine.",
+    "en": "The programmer, like the poet, works only slightly removed from pure thought-stuff. He builds his castles in the air, from air, creating by exertion of the imagination. Few media of creation are so flexible, so easy to polish and rework, so readily capable of realizing grand conceptual structures.",
+    "author": "Fred Brooks",
+    "rating": 3.3,
+    "id": "5a6ce86f2af929789500e80f"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e821",
+    "sr": "Prva lažna pretpostavka koja podriva rokove razvoja softvera je da će sve proći dobro, tj. da će svaki zadatak trajati samo koliko \"treba\" da traje. Veliki programerski projekti se, pak, sastoje od mnogo zadataka, od kojih su neki ulančani od početka do kraja. Verovatnoća da će sve proći dobro postaje nestvarno mala.",
+    "en": "The first false assumption that underlies the scheduling of systems programming is that all will go well, i.e., that each task will hike only as long as it \"ought\" to take. A large programming effort, however, consists of many tasks, some chained end-to-end. The probability that each will go well becomes vanishingly small.",
+    "author": "Fred Brooks",
+    "rating": 3.5,
+    "id": "5a6ce86f2af929789500e821"
+    },
+    {
+    "_id": "5a6ce86f2af929789500e81e",
+    "sr": "Treba da zaboravimo na male učinkovitosti, recimo u oko 97% slučajeva: prerana optimizacija je koren svih zala. Međutim, ne smemo propustiti priliku u tih kritičnih 3%.",
+    "en": "We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%.",
+    "author": "Donald Knuth",
+    "rating": 5,
+    "id": "5a6ce86f2af929789500e81e"
+    }
+    ]
