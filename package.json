@@ -4,7 +4,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev-frontend": "rollup -c -w",
-    "start-frontend": "sirv public", 
+    "start": "sirv public",
     "dev-backend": "nodemon src/server/index.js"
   },
   "devDependencies": {
@@ -21,6 +21,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "install": "^0.13.0",
-    "sirv-cli": "^0.4.4"
+    "sequelize": "^5.21.5",
+    "sirv-cli": "^0.4.4",
+    "sqlite3": "^4.1.1"
   }
 }
