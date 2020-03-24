@@ -120,7 +120,7 @@
 <Search bind:search />
 
 <div class="quotes"> 
-	{#each quotesFiltered as quote}
+	{#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes -->
 			<Quote {quote} {selectedLang} {expanded} />
 	{/each}
 </div>

@@ -1,9 +1,8 @@
 <script>
 	export let rating; 
 	
-	let ratingRounded = Math.round(rating * 2) / 2
-	
 	function determineStars(rating) {
+		const ratingRounded = Math.round(rating * 2) / 2
 		let starArray = [];
 		for (let i = 1; i <= 5; i++) {
 			starArray.push({
@@ -13,8 +12,6 @@
 		}
 		return starArray
 	}
-	
-	const starArray = determineStars(ratingRounded)
 
 </script>
 
@@ -26,7 +23,7 @@
 
 </style>
 
-{#each starArray as star}
+{#each determineStars(rating) as star}
 	<span class="fa fa-star{!star.full ? '-half-o' : ''} {star.checked ? 'checked' : ''}"></span>
 {/each}
 

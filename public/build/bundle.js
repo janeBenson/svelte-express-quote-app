@@ -222,6 +222,96 @@ var app = (function () {
     }
 
     const globals = (typeof window !== 'undefined' ? window : global);
+    function outro_and_destroy_block(block, lookup) {
+        transition_out(block, 1, 1, () => {
+            lookup.delete(block.key);
+        });
+    }
+    function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+        let o = old_blocks.length;
+        let n = list.length;
+        let i = o;
+        const old_indexes = {};
+        while (i--)
+            old_indexes[old_blocks[i].key] = i;
+        const new_blocks = [];
+        const new_lookup = new Map();
+        const deltas = new Map();
+        i = n;
+        while (i--) {
+            const child_ctx = get_context(ctx, list, i);
+            const key = get_key(child_ctx);
+            let block = lookup.get(key);
+            if (!block) {
+                block = create_each_block(key, child_ctx);
+                block.c();
+            }
+            else if (dynamic) {
+                block.p(child_ctx, dirty);
+            }
+            new_lookup.set(key, new_blocks[i] = block);
+            if (key in old_indexes)
+                deltas.set(key, Math.abs(i - old_indexes[key]));
+        }
+        const will_move = new Set();
+        const did_move = new Set();
+        function insert(block) {
+            transition_in(block, 1);
+            block.m(node, next, lookup.has(block.key));
+            lookup.set(block.key, block);
+            next = block.first;
+            n--;
+        }
+        while (o && n) {
+            const new_block = new_blocks[n - 1];
+            const old_block = old_blocks[o - 1];
+            const new_key = new_block.key;
+            const old_key = old_block.key;
+            if (new_block === old_block) {
+                // do nothing
+                next = new_block.first;
+                o--;
+                n--;
+            }
+            else if (!new_lookup.has(old_key)) {
+                // remove old block
+                destroy(old_block, lookup);
+                o--;
+            }
+            else if (!lookup.has(new_key) || will_move.has(new_key)) {
+                insert(new_block);
+            }
+            else if (did_move.has(old_key)) {
+                o--;
+            }
+            else if (deltas.get(new_key) > deltas.get(old_key)) {
+                did_move.add(new_key);
+                insert(new_block);
+            }
+            else {
+                will_move.add(old_key);
+                o--;
+            }
+        }
+        while (o--) {
+            const old_block = old_blocks[o];
+            if (!new_lookup.has(old_block.key))
+                destroy(old_block, lookup);
+        }
+        while (n)
+            insert(new_blocks[n - 1]);
+        return new_blocks;
+    }
+    function validate_each_keys(ctx, list, get_context, get_key) {
+        const keys = new Set();
+        for (let i = 0; i < list.length; i++) {
+            const key = get_key(get_context(ctx, list, i));
+            if (keys.has(key)) {
+                throw new Error(`Cannot have duplicate keys in a keyed each`);
+            }
+            keys.add(key);
+        }
+    }
 
     function bind(component, name, callback) {
         const index = component.$$.props[name];
@@ -432,11 +522,11 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
+    	child_ctx[1] = list[i];
     	return child_ctx;
     }
 
-    // (29:0) {#each starArray as star}
+    // (26:0) {#each determineStars(rating) as star}
     function create_each_block(ctx) {
     	let span;
     	let span_class_value;
@@ -444,13 +534,17 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			span = element("span");
-    			attr_dev(span, "class", span_class_value = "fa fa-star" + (!/*star*/ ctx[4].full ? "-half-o" : "") + " " + (/*star*/ ctx[4].checked ? "checked" : "") + " svelte-2rrem5");
-    			add_location(span, file, 29, 1, 482);
+    			attr_dev(span, "class", span_class_value = "fa fa-star" + (!/*star*/ ctx[1].full ? "-half-o" : "") + " " + (/*star*/ ctx[1].checked ? "checked" : "") + " svelte-2rrem5");
+    			add_location(span, file, 26, 1, 442);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
     		},
-    		p: noop,
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*rating*/ 1 && span_class_value !== (span_class_value = "fa fa-star" + (!/*star*/ ctx[1].full ? "-half-o" : "") + " " + (/*star*/ ctx[1].checked ? "checked" : "") + " svelte-2rrem5")) {
+    				attr_dev(span, "class", span_class_value);
+    			}
+    		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(span);
     		}
@@ -460,7 +554,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(29:0) {#each starArray as star}",
+    		source: "(26:0) {#each determineStars(rating) as star}",
     		ctx
     	});
 
@@ -469,7 +563,7 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let each_1_anchor;
-    	let each_value = /*starArray*/ ctx[0];
+    	let each_value = determineStars(/*rating*/ ctx[0]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -496,8 +590,8 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*starArray*/ 1) {
-    				each_value = /*starArray*/ ctx[0];
+    			if (dirty & /*determineStars, rating*/ 1) {
+    				each_value = determineStars(/*rating*/ ctx[0]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -539,24 +633,22 @@ var app = (function () {
     	return block;
     }
 
-    function instance($$self, $$props, $$invalidate) {
-    	let { rating } = $$props;
-    	let ratingRounded = Math.round(rating * 2) / 2;
+    function determineStars(rating) {
+    	const ratingRounded = Math.round(rating * 2) / 2;
+    	let starArray = [];
 
-    	function determineStars(rating) {
-    		let starArray = [];
-
-    		for (let i = 1; i <= 5; i++) {
-    			starArray.push({
-    				full: ratingRounded - i !== -0.5,
-    				checked: ratingRounded > i - 1
-    			});
-    		}
-
-    		return starArray;
+    	for (let i = 1; i <= 5; i++) {
+    		starArray.push({
+    			full: ratingRounded - i !== -0.5,
+    			checked: ratingRounded > i - 1
+    		});
     	}
 
-    	const starArray = determineStars();
+    	return starArray;
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let { rating } = $$props;
     	const writable_props = ["rating"];
 
     	Object.keys($$props).forEach(key => {
@@ -567,32 +659,26 @@ var app = (function () {
     	validate_slots("Rating", $$slots, []);
 
     	$$self.$set = $$props => {
-    		if ("rating" in $$props) $$invalidate(1, rating = $$props.rating);
+    		if ("rating" in $$props) $$invalidate(0, rating = $$props.rating);
     	};
 
-    	$$self.$capture_state = () => ({
-    		rating,
-    		ratingRounded,
-    		determineStars,
-    		starArray
-    	});
+    	$$self.$capture_state = () => ({ rating, determineStars });
 
     	$$self.$inject_state = $$props => {
-    		if ("rating" in $$props) $$invalidate(1, rating = $$props.rating);
-    		if ("ratingRounded" in $$props) ratingRounded = $$props.ratingRounded;
+    		if ("rating" in $$props) $$invalidate(0, rating = $$props.rating);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [starArray, rating];
+    	return [rating];
     }
 
     class Rating extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance, create_fragment, safe_not_equal, { rating: 1 });
+    		init(this, options, instance, create_fragment, safe_not_equal, { rating: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -604,7 +690,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*rating*/ ctx[1] === undefined && !("rating" in props)) {
+    		if (/*rating*/ ctx[0] === undefined && !("rating" in props)) {
     			console.warn("<Rating> was created without expected prop 'rating'");
     		}
     	}
@@ -1379,8 +1465,9 @@ var app = (function () {
     	return block;
     }
 
-    // (123:1) {#each quotesFiltered as quote}
-    function create_each_block$1(ctx) {
+    // (123:1) {#each quotesFiltered as quote (quote.id)}
+    function create_each_block$1(key_1, ctx) {
+    	let first;
     	let current;
 
     	const quote = new Quote({
@@ -1393,10 +1480,15 @@ var app = (function () {
     		});
 
     	const block = {
+    		key: key_1,
+    		first: null,
     		c: function create() {
+    			first = empty();
     			create_component(quote.$$.fragment);
+    			this.first = first;
     		},
     		m: function mount(target, anchor) {
+    			insert_dev(target, first, anchor);
     			mount_component(quote, target, anchor);
     			current = true;
     		},
@@ -1417,6 +1509,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(first);
     			destroy_component(quote, detaching);
     		}
     	};
@@ -1425,7 +1518,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(123:1) {#each quotesFiltered as quote}",
+    		source: "(123:1) {#each quotesFiltered as quote (quote.id)}",
     		ctx
     	});
 
@@ -1455,6 +1548,8 @@ var app = (function () {
     	let updating_search;
     	let t9;
     	let div3;
+    	let each_blocks = [];
+    	let each2_lookup = new Map();
     	let current;
     	let dispose;
     	let each_value_2 = /*languages*/ ctx[6];
@@ -1487,15 +1582,14 @@ var app = (function () {
     	binding_callbacks.push(() => bind(search_1, "search", search_1_search_binding));
     	let each_value = /*quotesFiltered*/ ctx[0];
     	validate_each_argument(each_value);
-    	let each_blocks = [];
+    	const get_key = ctx => /*quote*/ ctx[17].id;
+    	validate_each_keys(ctx, each_value, get_each_context$1, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    		let child_ctx = get_each_context$1(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each2_lookup.set(key, each_blocks[i] = create_each_block$1(key, child_ctx));
     	}
-
-    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-    		each_blocks[i] = null;
-    	});
 
     	const block = {
     		c: function create() {
@@ -1696,30 +1790,11 @@ var app = (function () {
     			search_1.$set(search_1_changes);
 
     			if (dirty & /*quotesFiltered, selectedLang, expanded*/ 7) {
-    				each_value = /*quotesFiltered*/ ctx[0];
+    				const each_value = /*quotesFiltered*/ ctx[0];
     				validate_each_argument(each_value);
-    				let i;
-
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$1(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    						transition_in(each_blocks[i], 1);
-    					} else {
-    						each_blocks[i] = create_each_block$1(child_ctx);
-    						each_blocks[i].c();
-    						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div3, null);
-    					}
-    				}
-
     				group_outros();
-
-    				for (i = each_value.length; i < each_blocks.length; i += 1) {
-    					out(i);
-    				}
-
+    				validate_each_keys(ctx, each_value, get_each_context$1, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each2_lookup, div3, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
     				check_outros();
     			}
     		},
@@ -1735,7 +1810,6 @@ var app = (function () {
     		},
     		o: function outro(local) {
     			transition_out(search_1.$$.fragment, local);
-    			each_blocks = each_blocks.filter(Boolean);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				transition_out(each_blocks[i]);
@@ -1759,7 +1833,11 @@ var app = (function () {
     			destroy_component(search_1, detaching);
     			if (detaching) detach_dev(t9);
     			if (detaching) detach_dev(div3);
-    			destroy_each(each_blocks, detaching);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d();
+    			}
+
     			run_all(dispose);
     		}
     	};
