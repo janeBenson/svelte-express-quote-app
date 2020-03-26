@@ -57,7 +57,7 @@
 	function searchFilter(quote) {
 		if (search) {
 			let searchInput = search.toLowerCase()
-			return quote.author.toLowerCase().includes(searchInput) || 		quote[selectedLang].toLowerCase().includes(searchInput)		
+			return quote.author.toLowerCase().includes(searchInput) || quote[selectedLang].toLowerCase().includes(searchInput)		
 		} 
 		return true
 	}
@@ -68,6 +68,10 @@
 	
 	function setQuotesFiltered() {
 		quotesFiltered = quotes.filter(quoteMeetsFilters)
+	}
+
+	function onQuoteDelete(id) {
+		quotes = quotes.filter(el => el.id !== id)
 	}
 
 </script>
@@ -89,7 +93,6 @@
 	
 </style>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="row heading-content">
@@ -121,7 +124,7 @@
 
 <div class="quotes"> 
 	{#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes -->
-			<Quote {quote} {selectedLang} {expanded} />
+			<Quote {quote} {selectedLang} {expanded} {onQuoteDelete} />
 	{/each}
 </div>
 

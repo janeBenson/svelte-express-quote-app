@@ -58,6 +58,7 @@ module.exports = (app, sequelize) => {
 
     // delete quote
     app.delete('/api/quotes/:id', async (req, res) => {
+        console.log('deleting quote...')
         const id = parseInt(req.params.id)
         try {
             const quote = await Quote.findOne({ where: { id } })
