@@ -7,7 +7,7 @@
 	
 	const languages = [
 		{code: 'en', label: 'English'}, 
-		{code: 'sr', label: 'Gibberish'}
+		{code: 'gib', label: 'Gibberish'}
 	]
 	let quotes = []; // need this to overcome array error for Each block
 	let quotesFiltered = []
@@ -36,10 +36,10 @@
 		let authors = []
 		
 		for (let i = 0; i < quotes.length; i++) {
-			if (authors.includes(quotes[i].author)) {
+			if (authors.includes(quotes[i].author.name)) {
 				continue
 			} else {
-				authors.push(quotes[i].author)
+				authors.push(quotes[i].author.name)
 			}
 		}
 		return authors
@@ -47,7 +47,7 @@
 	
 	function authorFilter(quote) {
 		if (selectedAuthors.length > 0) {
-			return selectedAuthors.includes(quote.author)
+			return selectedAuthors.includes(quote.author.name)
 		}
 		return true
 	}
@@ -55,7 +55,7 @@
 	function searchFilter(quote) {
 		if (search) {
 			let searchInput = search.toLowerCase()
-			return quote.author.toLowerCase().includes(searchInput) || quote[selectedLang].toLowerCase().includes(searchInput)		
+			return quote.author.name.toLowerCase().includes(searchInput) || quote[selectedLang].toLowerCase().includes(searchInput)		
 		} 
 		return true
 	}

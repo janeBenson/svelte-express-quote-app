@@ -47,7 +47,7 @@
 <div class='quote' id={quote.id}>
 	
 	<div class="author">
-		{quote.author}
+		{quote.author.name}
 	</div>
 	
 	<div class="quote-contents">

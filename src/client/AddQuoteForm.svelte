@@ -1,7 +1,11 @@
 <script>
   export let onQuoteAdded;
 
-  let input = {}
+  let input = {
+    en: '', 
+    rating: 0, 
+    author: { name: '' }
+  }
 
   async function handleSubmit(event) {
     await fetch('http://localhost:3000/api/quotes', {
@@ -15,7 +19,7 @@
 </script>
 <form on:submit|preventDefault={handleSubmit}>
   <label for="author">First name:</label><br>
-  <input bind:value={input.author} required type="text" id="author">
+  <input bind:value={input.author.name} required type="text" id="author">
 
   <label for="quote">Add your quote</label>
   <textarea bind:value={input.en} id="quote"></textarea>

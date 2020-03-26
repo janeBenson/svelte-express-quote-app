@@ -562,28 +562,28 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Add Quote";
     			attr_dev(label0, "for", "author");
-    			add_location(label0, file, 16, 2, 366);
-    			add_location(br, file, 16, 41, 405);
+    			add_location(label0, file, 20, 2, 427);
+    			add_location(br, file, 20, 41, 466);
     			input0.required = true;
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "id", "author");
-    			add_location(input0, file, 17, 2, 413);
+    			add_location(input0, file, 21, 2, 474);
     			attr_dev(label1, "for", "quote");
-    			add_location(label1, file, 19, 2, 485);
+    			add_location(label1, file, 23, 2, 551);
     			attr_dev(textarea, "id", "quote");
-    			add_location(textarea, file, 20, 2, 530);
+    			add_location(textarea, file, 24, 2, 596);
     			attr_dev(label2, "for", "rating");
-    			add_location(label2, file, 22, 2, 590);
-    			add_location(span, file, 23, 2, 628);
+    			add_location(label2, file, 26, 2, 656);
+    			add_location(span, file, 27, 2, 694);
     			attr_dev(input1, "type", "range");
     			attr_dev(input1, "id", "rating");
     			attr_dev(input1, "min", "0");
     			attr_dev(input1, "max", "5");
     			attr_dev(input1, "step", "0.5");
-    			add_location(input1, file, 23, 30, 656);
+    			add_location(input1, file, 27, 30, 722);
     			attr_dev(button, "type", "submit");
-    			add_location(button, file, 25, 2, 750);
-    			add_location(form, file, 15, 0, 316);
+    			add_location(button, file, 29, 2, 816);
+    			add_location(form, file, 19, 0, 377);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -594,7 +594,7 @@ var app = (function () {
     			append_dev(form, br);
     			append_dev(form, t1);
     			append_dev(form, input0);
-    			set_input_value(input0, /*input*/ ctx[0].author);
+    			set_input_value(input0, /*input*/ ctx[0].author.name);
     			append_dev(form, t2);
     			append_dev(form, label1);
     			append_dev(form, t4);
@@ -621,8 +621,8 @@ var app = (function () {
     			];
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*input*/ 1 && input0.value !== /*input*/ ctx[0].author) {
-    				set_input_value(input0, /*input*/ ctx[0].author);
+    			if (dirty & /*input*/ 1 && input0.value !== /*input*/ ctx[0].author.name) {
+    				set_input_value(input0, /*input*/ ctx[0].author.name);
     			}
 
     			if (dirty & /*input*/ 1) {
@@ -656,7 +656,7 @@ var app = (function () {
 
     function instance($$self, $$props, $$invalidate) {
     	let { onQuoteAdded } = $$props;
-    	let input = {};
+    	let input = { en: "", rating: 0, author: { name: "" } };
 
     	async function handleSubmit(event) {
     		await fetch("http://localhost:3000/api/quotes", {
@@ -678,7 +678,7 @@ var app = (function () {
     	validate_slots("AddQuoteForm", $$slots, []);
 
     	function input0_input_handler() {
-    		input.author = this.value;
+    		input.author.name = this.value;
     		$$invalidate(0, input);
     	}
 
@@ -1249,7 +1249,7 @@ var app = (function () {
     			div = element("div");
     			create_component(rating.$$.fragment);
     			attr_dev(div, "class", "rating svelte-v0pc81");
-    			add_location(div, file$3, 57, 1, 911);
+    			add_location(div, file$3, 57, 1, 916);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1290,7 +1290,7 @@ var app = (function () {
     function create_fragment$3(ctx) {
     	let div2;
     	let div0;
-    	let t0_value = /*quote*/ ctx[0].author + "";
+    	let t0_value = /*quote*/ ctx[0].author.name + "";
     	let t0;
     	let t1;
     	let div1;
@@ -1328,11 +1328,11 @@ var app = (function () {
     			attr_dev(div0, "class", "author svelte-v0pc81");
     			add_location(div0, file$3, 48, 1, 740);
     			attr_dev(div1, "class", "quote-contents svelte-v0pc81");
-    			add_location(div1, file$3, 52, 1, 793);
+    			add_location(div1, file$3, 52, 1, 798);
     			attr_dev(i, "class", "fa fa-trash");
-    			add_location(i, file$3, 62, 51, 1041);
+    			add_location(i, file$3, 62, 51, 1046);
     			attr_dev(a, "href", "/");
-    			add_location(a, file$3, 62, 1, 991);
+    			add_location(a, file$3, 62, 1, 996);
     			attr_dev(div2, "class", "quote svelte-v0pc81");
     			attr_dev(div2, "id", div2_id_value = /*quote*/ ctx[0].id);
     			add_location(div2, file$3, 46, 0, 701);
@@ -1357,7 +1357,7 @@ var app = (function () {
     			dispose = listen_dev(a, "click", prevent_default(/*deleteQuote*/ ctx[3]), false, true, false);
     		},
     		p: function update(ctx, [dirty]) {
-    			if ((!current || dirty & /*quote*/ 1) && t0_value !== (t0_value = /*quote*/ ctx[0].author + "")) set_data_dev(t0, t0_value);
+    			if ((!current || dirty & /*quote*/ 1) && t0_value !== (t0_value = /*quote*/ ctx[0].author.name + "")) set_data_dev(t0, t0_value);
     			const longtext_changes = {};
     			if (dirty & /*quote, selectedLang*/ 3) longtext_changes.text = /*quote*/ ctx[0][/*selectedLang*/ ctx[1]];
     			if (dirty & /*expanded*/ 4) longtext_changes.expanded = /*expanded*/ ctx[2];
@@ -1680,7 +1680,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*lang*/ ctx[25].code;
     			option.value = option.__value;
-    			add_location(option, file$5, 109, 4, 2316);
+    			add_location(option, file$5, 109, 4, 2337);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1716,7 +1716,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*author*/ ctx[22];
     			option.value = option.__value;
-    			add_location(option, file$5, 122, 2, 2615);
+    			add_location(option, file$5, 122, 2, 2636);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1921,34 +1921,34 @@ var app = (function () {
 
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-    			add_location(link, file$5, 99, 0, 1968);
-    			add_location(h1, file$5, 103, 2, 2159);
+    			add_location(link, file$5, 99, 0, 1989);
+    			add_location(h1, file$5, 103, 2, 2180);
     			attr_dev(div0, "id", "page-title");
     			attr_dev(div0, "class", "col-sm-9 svelte-1wnvoju");
-    			add_location(div0, file$5, 102, 1, 2118);
+    			add_location(div0, file$5, 102, 1, 2139);
     			attr_dev(select0, "class", "svelte-1wnvoju");
     			if (/*selectedLang*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[15].call(select0));
-    			add_location(select0, file$5, 107, 2, 2248);
+    			add_location(select0, file$5, 107, 2, 2269);
     			attr_dev(div1, "id", "language-dropdown");
     			attr_dev(div1, "class", "col-sm-3 svelte-1wnvoju");
-    			add_location(div1, file$5, 106, 1, 2200);
+    			add_location(div1, file$5, 106, 1, 2221);
     			attr_dev(div2, "class", "row heading-content svelte-1wnvoju");
-    			add_location(div2, file$5, 101, 0, 2083);
+    			add_location(div2, file$5, 101, 0, 2104);
     			option0.__value = option0_value_value = true;
     			option0.value = option0.__value;
-    			add_location(option0, file$5, 116, 1, 2438);
+    			add_location(option0, file$5, 116, 1, 2459);
     			option1.__value = option1_value_value = false;
     			option1.value = option1.__value;
-    			add_location(option1, file$5, 117, 1, 2481);
+    			add_location(option1, file$5, 117, 1, 2502);
     			attr_dev(select1, "class", "svelte-1wnvoju");
     			if (/*expanded*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[16].call(select1));
-    			add_location(select1, file$5, 115, 0, 2406);
+    			add_location(select1, file$5, 115, 0, 2427);
     			select2.multiple = true;
     			attr_dev(select2, "class", "svelte-1wnvoju");
     			if (/*selectedAuthors*/ ctx[4] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[17].call(select2));
-    			add_location(select2, file$5, 120, 0, 2539);
+    			add_location(select2, file$5, 120, 0, 2560);
     			attr_dev(div3, "class", "quotes");
-    			add_location(div3, file$5, 130, 0, 2734);
+    			add_location(div3, file$5, 130, 0, 2755);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2144,10 +2144,10 @@ var app = (function () {
     	let authors = [];
 
     	for (let i = 0; i < quotes.length; i++) {
-    		if (authors.includes(quotes[i].author)) {
+    		if (authors.includes(quotes[i].author.name)) {
     			continue;
     		} else {
-    			authors.push(quotes[i].author);
+    			authors.push(quotes[i].author.name);
     		}
     	}
 
@@ -2155,7 +2155,7 @@ var app = (function () {
     }
 
     function instance$5($$self, $$props, $$invalidate) {
-    	const languages = [{ code: "en", label: "English" }, { code: "sr", label: "Gibberish" }];
+    	const languages = [{ code: "en", label: "English" }, { code: "gib", label: "Gibberish" }];
     	let quotes = []; // need this to overcome array error for Each block
     	let quotesFiltered = [];
     	let selectedLang;
@@ -2177,7 +2177,7 @@ var app = (function () {
 
     	function authorFilter(quote) {
     		if (selectedAuthors.length > 0) {
-    			return selectedAuthors.includes(quote.author);
+    			return selectedAuthors.includes(quote.author.name);
     		}
 
     		return true;
@@ -2186,7 +2186,7 @@ var app = (function () {
     	function searchFilter(quote) {
     		if (search) {
     			let searchInput = search.toLowerCase();
-    			return quote.author.toLowerCase().includes(searchInput) || quote[selectedLang].toLowerCase().includes(searchInput);
+    			return quote.author.name.toLowerCase().includes(searchInput) || quote[selectedLang].toLowerCase().includes(searchInput);
     		}
 
     		return true;

@@ -1,20 +1,30 @@
 const randomText = require('../utils/randomText')
 
-module.exports = (app, sequelize) => {
-    const Quote = sequelize.models.Quote
+module.exports = (app, db) => {
 
-    // add quote 
+    // Create Quote
     app.post('/api/quotes', async (req, res) => {
         const quote = req.body
 
         try {
             const gibberish = await randomText(quote.en.split(' ').length)
 
-            await Quote.create({
-                author: quote.author,
-                sr: gibberish,
+            let author = await db.authors.findOne({
+                where: { name: quote.author.name }
+            })
+
+            if (!author) {
+                // create new author  
+                author = await db.authors.create({
+                    name: quote.author.name
+                })
+            } 
+            // create new quote w/existing author id
+            await db.quotes.create({
                 en: quote.en,
-                rating: quote.rating
+                gib: gibberish,
+                rating: quote.rating, 
+                authorId: author.id
             })
 
             res.status(201).send()
@@ -25,26 +35,87 @@ module.exports = (app, sequelize) => {
         }
     })
 
-    // update quote
+    // Get Quote
+    app.get('/api/quotes/:id', async (req, res) => {
+        const id = parseInt(req.params.id)
+        try {
+            const quote = await db.quotes.findOne({ 
+                where: { id },
+                include: db.authors // eager load the author
+            })
+
+            if (!quote) {
+                return res.status(404).send() 
+            }
+
+            res.send(quote)
+            /*
+                quote: 
+                {
+                    en: ....
+                    gib: ....
+                    rating: ....
+                    author: {name: ....}
+                    ...
+                }
+            
+            */
+
+        } catch (error) {
+            console.log(error) 
+            res.status(500).send()
+        }
+    })
+
+    // Get All Quotes
+    app.get('/api/quotes', async (req, res) => {
+        try {
+            const quotes = await db.quotes.findAll({
+                where: {},
+                include: db.authors // eager load author
+            })
+            res.header("Content-Type",'application/json')
+            res.send(JSON.stringify(quotes))
+
+        } catch (error) {
+            console.log(error) 
+            res.status(500).send()
+        }
+    })
+
+    // Update Quote
     app.put('/api/quotes/:id', async (req, res) => {
         const id = parseInt(req.params.id)
+        const allowedQuoteUpdates = ['en', 'gib', 'rating']
     
         try {
-            const quote = await Quote.findOne({ where: { id } })
-            const allowedUpdates = ['author', 'en', 'sr', 'rating']
+            const quote = await db.quotes.findOne({ where: { id } })
     
             if (!quote) {
+                // quote not found
                 return res.status(404).send()
             }
 
-            let updatedQuote = {}
-            allowedUpdates.forEach((update) => {
-                updatedQuote[update] = req.body[update]
+            // update quote properties 
+            allowedQuoteUpdates.forEach((update) => {
+                quote[update] = req.body[update]
             })
 
-            await Quote.update(updatedQuote, {
-                where: { id }
+            quote.save() // save quote properties to db
+
+            // update author 
+            const author = await db.authors.findOne({ 
+                where: { name: req.body.author.name }
             })
+
+            if (!author) {
+                // create new author in db 
+                quote.createAuthor({ name: req.body.author.name })
+
+            } else {
+                // set author on quote 
+                quote.setAuthor(author)
+            }
 
             res.send()
             
@@ -54,26 +125,33 @@ module.exports = (app, sequelize) => {
         }  
     })
 
-    // get all quotes
-    app.get('/api/quotes', async (req, res) => {
-        let quotes = await Quote.findAll()
-
-        res.header("Content-Type",'application/json')
-        res.send(JSON.stringify(quotes))
-    })
-
-    // delete quote
+    // Delete Quote
     app.delete('/api/quotes/:id', async (req, res) => {
-        console.log('deleting quote...')
         const id = parseInt(req.params.id)
         try {
-            const quote = await Quote.findOne({ where: { id } })
+            const quote = await db.quotes.findOne({ 
+                where: { id },
+                include: db.authors // eager load
+            })
+
             if (!quote) {
+                // quote does not exist
                 return res.status(404).send()
             }
-            await Quote.destroy({
+
+            // delete quote from db
+            await db.quotes.destroy({
                 where: { id }
             })
+
+            // delete author from db if author doesn't have any existing quotes
+            console.log('Author Quote Count: ', await quote.author.countQuotes()) // remove
+            if (await quote.author.countQuotes() === 0) {
+                await db.authors.destroy({
+                    where: { id: quote.author.id }
+                })
+            }
+
             res.send(quote)
 
         } catch (error) {
@@ -89,9 +167,9 @@ module.exports = (app, sequelize) => {
 
         for (let i = 0; i < data.length; i++) {
             const quote = data[i]
-            Quote.create({ 
-                author: quote.author,
-                sr: quote.sr,
+            db.quotes.create({ 
+                author: quote.author.name,
+                gib: quote.gib,
                 en: quote.en,
                 rating: quote.rating 
             })

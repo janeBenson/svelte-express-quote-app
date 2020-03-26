@@ -1,15 +1,30 @@
 const path = require('path')
 const { Sequelize, DataTypes } = require('sequelize')
 
-const dbPath = path.join(__dirname, '../../quotes.db')
+const dbPath = path.join(__dirname, '../quotes-app.db')
 
 const sequelize = new Sequelize({
     dialect: 'sqlite', 
     storage: dbPath
 })
 
-require('./quote')(sequelize, DataTypes) // init quotes table
+// Connect all models/tables in db to a db object
+// so everything is accessible via one object
+const db = {}
 
+db.Sequelize = Sequelize
+db.sequelize = sequelize
+
+
+// Models/tables
+db.authors = require('./author')(sequelize, DataTypes) 
+db.quotes = require('./quote')(sequelize, DataTypes)
+
+// Relationships 
+db.authors.hasMany(db.quotes) // each author can have many quotes
+db.quotes.belongsTo(db.authors) // each quote belongs to one author
+
+// sync db
 sequelize.sync()
 
-module.exports = sequelize
+module.exports = db
