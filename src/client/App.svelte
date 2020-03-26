@@ -1,9 +1,7 @@
 <script>
-	import { onMount } from 'svelte' 
+	import AddQuoteForm from './AddQuoteForm.svelte'
 	import Quote from './Quote.svelte'
 	import Search from './Search.svelte'
-	
-	//const url = 'https://programming-quotes-api.herokuapp.com/quotes/page/1?fbclid=IwAR0oZXvkEGjD8d12Eh1Iv8ivQr3_VBgr0rdrPV7Zz9bVY0V7HqW1gC9Yd54'
 	
 	const url = 'http://localhost:3000/api/quotes'
 	
@@ -70,8 +68,14 @@
 		quotesFiltered = quotes.filter(quoteMeetsFilters)
 	}
 
-	function onQuoteDelete(id) {
-		quotes = quotes.filter(el => el.id !== id)
+	async function onQuoteDelete(id) {
+		alert('Quote deleted!')
+		await getQuotes()
+	}
+
+	async function onQuoteAdded() {
+		alert('your quote has been added!')
+		await getQuotes()
 	}
 
 </script>
@@ -122,9 +126,7 @@
 
 <Search bind:search />
 
-<div class='add-quote'>
-<textarea>Quote</textarea>
-</div>
+<AddQuoteForm {onQuoteAdded} />
 
 <div class="quotes"> 
 	{#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes -->

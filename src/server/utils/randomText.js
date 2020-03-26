@@ -6,8 +6,8 @@ async function randomText(wordCount) {
     const res = await nodeFetch(url)
     const json = await res.json() 
     const text = json.text_out.replace('<p>', '').replace('</p>\r', '')
-    
     return text
+    
 }
 
 module.exports = randomText

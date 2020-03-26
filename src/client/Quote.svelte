@@ -11,7 +11,6 @@
 		try {
 			await fetch(`http://localhost:3000/api/quotes/${quote.id}`, {method: 'DELETE'})
 			onQuoteDelete(quote.id)
-			alert('Quote was removed!')	
 
 		} catch (error) {
 			console.log(error)
