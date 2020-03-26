@@ -8,7 +8,7 @@ const sequelize = new Sequelize({
     storage: dbPath
 })
 
-require('./quote')(sequelize, DataTypes) // init db
+require('./quote')(sequelize, DataTypes) // init quotes table
 
 sequelize.sync()
 

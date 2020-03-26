@@ -9,8 +9,7 @@ const port = 3000
 app.use(cors())  
 app.use(express.json()) // auto parse incoming JSON
 
-// routes
-require('./routes/quote')(app, sequelize)
+require('./routes/quote')(app, sequelize) // initialize routes
 
 app.listen(port, () => console.log(`Server is listening on port ${port}.`))
 

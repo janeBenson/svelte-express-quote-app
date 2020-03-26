@@ -1,5 +1,6 @@
 module.exports = (app, sequelize) => {
     const Quote = sequelize.models.Quote
+
     // add quote 
     app.post('/api/quotes', async (req, res) => {
         const quote = req.body
@@ -18,6 +19,35 @@ module.exports = (app, sequelize) => {
         }
     })
 
+    // update quote
+    app.put('/api/quotes/:id', async (req, res) => {
+        const id = parseInt(req.params.id)
+    
+        try {
+            const quote = await Quote.findOne({ where: { id } })
+            const allowedUpdates = ['author', 'en', 'sr', 'rating']
+    
+            if (!quote) {
+                return res.status(404).send()
+            }
+
+            let updatedQuote = {}
+            allowedUpdates.forEach((update) => {
+                updatedQuote[update] = req.body[update]
+            })
+
+            await Quote.update(updatedQuote, {
+                where: { id }
+            })
+
+            res.send()
+            
+        } catch (error) {
+            // server related issue or validation related issue
+            res.status(400).send(error)
+        }  
+    })
+
     // get all quotes
     app.get('/api/quotes', async (req, res) => {
         let quotes = await Quote.findAll()
@@ -30,7 +60,7 @@ module.exports = (app, sequelize) => {
     app.delete('/api/quotes/:id', async (req, res) => {
         const id = parseInt(req.params.id)
         try {
-            const quote = await Quote.findAll({ where: { id } })
+            const quote = await Quote.findOne({ where: { id } })
             if (!quote) {
                 return res.status(404).send()
             }
