@@ -9,7 +9,7 @@
 	
 	const languages = [
 		{code: 'en', label: 'English'}, 
-		{code: 'sr', label: 'Serbian'}
+		{code: 'sr', label: 'Gibberish'}
 	]
 	let quotes = []; // need this to overcome array error for Each block
 	let quotesFiltered = []
@@ -121,6 +121,10 @@
 </select>	
 
 <Search bind:search />
+
+<div class='add-quote'>
+<textarea>Quote</textarea>
+</div>
 
 <div class="quotes"> 
 	{#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes -->

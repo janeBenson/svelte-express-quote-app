@@ -1451,7 +1451,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*lang*/ ctx[24].code;
     			option.value = option.__value;
-    			add_location(option, file$4, 105, 4, 2344);
+    			add_location(option, file$4, 105, 4, 2346);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1487,7 +1487,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*author*/ ctx[21];
     			option.value = option.__value;
-    			add_location(option, file$4, 118, 2, 2643);
+    			add_location(option, file$4, 118, 2, 2645);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1518,7 +1518,7 @@ var app = (function () {
     	return block;
     }
 
-    // (126:1) {#each quotesFiltered as quote (quote.id)}
+    // (130:1) {#each quotesFiltered as quote (quote.id)}
     function create_each_block$1(key_1, ctx) {
     	let first;
     	let current;
@@ -1572,7 +1572,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(126:1) {#each quotesFiltered as quote (quote.id)}",
+    		source: "(130:1) {#each quotesFiltered as quote (quote.id)}",
     		ctx
     	});
 
@@ -1600,6 +1600,9 @@ var app = (function () {
     	let updating_search;
     	let t8;
     	let div3;
+    	let textarea;
+    	let t9;
+    	let div4;
     	let each_blocks = [];
     	let each2_lookup = new Map();
     	let current;
@@ -1676,6 +1679,9 @@ var app = (function () {
     			create_component(search_1.$$.fragment);
     			t8 = space();
     			div3 = element("div");
+    			textarea = element("textarea");
+    			t9 = space();
+    			div4 = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
@@ -1683,34 +1689,38 @@ var app = (function () {
 
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-    			add_location(link, file$4, 95, 0, 1996);
-    			add_location(h1, file$4, 99, 2, 2187);
+    			add_location(link, file$4, 95, 0, 1998);
+    			add_location(h1, file$4, 99, 2, 2189);
     			attr_dev(div0, "id", "page-title");
     			attr_dev(div0, "class", "col-sm-9 svelte-1wnvoju");
-    			add_location(div0, file$4, 98, 1, 2146);
+    			add_location(div0, file$4, 98, 1, 2148);
     			attr_dev(select0, "class", "svelte-1wnvoju");
     			if (/*selectedLang*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[14].call(select0));
-    			add_location(select0, file$4, 103, 2, 2276);
+    			add_location(select0, file$4, 103, 2, 2278);
     			attr_dev(div1, "id", "language-dropdown");
     			attr_dev(div1, "class", "col-sm-3 svelte-1wnvoju");
-    			add_location(div1, file$4, 102, 1, 2228);
+    			add_location(div1, file$4, 102, 1, 2230);
     			attr_dev(div2, "class", "row heading-content svelte-1wnvoju");
-    			add_location(div2, file$4, 97, 0, 2111);
+    			add_location(div2, file$4, 97, 0, 2113);
     			option0.__value = option0_value_value = true;
     			option0.value = option0.__value;
-    			add_location(option0, file$4, 112, 1, 2466);
+    			add_location(option0, file$4, 112, 1, 2468);
     			option1.__value = option1_value_value = false;
     			option1.value = option1.__value;
-    			add_location(option1, file$4, 113, 1, 2509);
+    			add_location(option1, file$4, 113, 1, 2511);
     			attr_dev(select1, "class", "svelte-1wnvoju");
     			if (/*expanded*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[15].call(select1));
-    			add_location(select1, file$4, 111, 0, 2434);
+    			add_location(select1, file$4, 111, 0, 2436);
     			select2.multiple = true;
     			attr_dev(select2, "class", "svelte-1wnvoju");
     			if (/*selectedAuthors*/ ctx[4] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[16].call(select2));
-    			add_location(select2, file$4, 116, 0, 2567);
-    			attr_dev(div3, "class", "quotes");
-    			add_location(div3, file$4, 124, 0, 2729);
+    			add_location(select2, file$4, 116, 0, 2569);
+    			textarea.value = "Quote";
+    			add_location(textarea, file$4, 125, 0, 2755);
+    			attr_dev(div3, "class", "add-quote");
+    			add_location(div3, file$4, 124, 0, 2731);
+    			attr_dev(div4, "class", "quotes");
+    			add_location(div4, file$4, 128, 0, 2790);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1747,9 +1757,12 @@ var app = (function () {
     			mount_component(search_1, target, anchor);
     			insert_dev(target, t8, anchor);
     			insert_dev(target, div3, anchor);
+    			append_dev(div3, textarea);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, div4, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div3, null);
+    				each_blocks[i].m(div4, null);
     			}
 
     			current = true;
@@ -1837,7 +1850,7 @@ var app = (function () {
     				validate_each_argument(each_value);
     				group_outros();
     				validate_each_keys(ctx, each_value, get_each_context$1, get_key);
-    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each2_lookup, div3, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each2_lookup, div4, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
     				check_outros();
     			}
     		},
@@ -1874,6 +1887,8 @@ var app = (function () {
     			destroy_component(search_1, detaching);
     			if (detaching) detach_dev(t8);
     			if (detaching) detach_dev(div3);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(div4);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].d();
@@ -1911,7 +1926,7 @@ var app = (function () {
     }
 
     function instance$4($$self, $$props, $$invalidate) {
-    	const languages = [{ code: "en", label: "English" }, { code: "sr", label: "Serbian" }];
+    	const languages = [{ code: "en", label: "English" }, { code: "sr", label: "Gibberish" }];
     	let quotes = []; // need this to overcome array error for Each block
     	let quotesFiltered = [];
     	let selectedLang;

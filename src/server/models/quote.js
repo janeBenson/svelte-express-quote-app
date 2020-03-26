@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         sr: {
           type: DataTypes.TEXT, 
-          allowNull: false
+          allowNull: true
         },
         en: {
             type: DataTypes.TEXT, 

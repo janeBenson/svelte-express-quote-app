@@ -1,16 +1,22 @@
+const randomText = require('../utils/randomText')
+
 module.exports = (app, sequelize) => {
     const Quote = sequelize.models.Quote
 
     // add quote 
     app.post('/api/quotes', async (req, res) => {
         const quote = req.body
+
         try {
+            const gibberish = await randomText(quote.en.split(' ').length)
+
             await Quote.create({
                 author: quote.author,
-                sr: quote.sr,
+                sr: gibberish,
                 en: quote.en,
                 rating: quote.rating
             })
+
             res.status(201).send()
 
         } catch(error) {
