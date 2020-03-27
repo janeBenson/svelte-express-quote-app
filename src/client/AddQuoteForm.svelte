@@ -1,11 +1,8 @@
 <script>
   export let onQuoteAdded;
 
-  let input = {
-    en: '', 
-    rating: 0, 
-    author: { name: '' }
-  }
+  let input; 
+  resetInput()
 
   async function handleSubmit(event) {
     await fetch('http://localhost:3000/api/quotes', {
@@ -14,6 +11,15 @@
       body: JSON.stringify(input)
     })
     onQuoteAdded()
+    resetInput() 
+  }
+
+  function resetInput() {
+    input = {
+        en: '', 
+        rating: 0, 
+        author: { name: '' }
+      }
   }
 
 </script>

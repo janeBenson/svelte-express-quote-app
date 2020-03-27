@@ -562,28 +562,28 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Add Quote";
     			attr_dev(label0, "for", "author");
-    			add_location(label0, file, 20, 2, 427);
-    			add_location(br, file, 20, 41, 466);
+    			add_location(label0, file, 26, 2, 525);
+    			add_location(br, file, 26, 41, 564);
     			input0.required = true;
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "id", "author");
-    			add_location(input0, file, 21, 2, 474);
+    			add_location(input0, file, 27, 2, 572);
     			attr_dev(label1, "for", "quote");
-    			add_location(label1, file, 23, 2, 551);
+    			add_location(label1, file, 29, 2, 649);
     			attr_dev(textarea, "id", "quote");
-    			add_location(textarea, file, 24, 2, 596);
+    			add_location(textarea, file, 30, 2, 694);
     			attr_dev(label2, "for", "rating");
-    			add_location(label2, file, 26, 2, 656);
-    			add_location(span, file, 27, 2, 694);
+    			add_location(label2, file, 32, 2, 754);
+    			add_location(span, file, 33, 2, 792);
     			attr_dev(input1, "type", "range");
     			attr_dev(input1, "id", "rating");
     			attr_dev(input1, "min", "0");
     			attr_dev(input1, "max", "5");
     			attr_dev(input1, "step", "0.5");
-    			add_location(input1, file, 27, 30, 722);
+    			add_location(input1, file, 33, 30, 820);
     			attr_dev(button, "type", "submit");
-    			add_location(button, file, 29, 2, 816);
-    			add_location(form, file, 19, 0, 377);
+    			add_location(button, file, 35, 2, 914);
+    			add_location(form, file, 25, 0, 475);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -613,10 +613,10 @@ var app = (function () {
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen_dev(input0, "input", /*input0_input_handler*/ ctx[3]),
-    				listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[4]),
-    				listen_dev(input1, "change", /*input1_change_input_handler*/ ctx[5]),
-    				listen_dev(input1, "input", /*input1_change_input_handler*/ ctx[5]),
+    				listen_dev(input0, "input", /*input0_input_handler*/ ctx[4]),
+    				listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[5]),
+    				listen_dev(input1, "change", /*input1_change_input_handler*/ ctx[6]),
+    				listen_dev(input1, "input", /*input1_change_input_handler*/ ctx[6]),
     				listen_dev(form, "submit", prevent_default(/*handleSubmit*/ ctx[1]), false, true, false)
     			];
     		},
@@ -656,7 +656,8 @@ var app = (function () {
 
     function instance($$self, $$props, $$invalidate) {
     	let { onQuoteAdded } = $$props;
-    	let input = { en: "", rating: 0, author: { name: "" } };
+    	let input;
+    	resetInput();
 
     	async function handleSubmit(event) {
     		await fetch("http://localhost:3000/api/quotes", {
@@ -666,6 +667,11 @@ var app = (function () {
     		});
 
     		onQuoteAdded();
+    		resetInput();
+    	}
+
+    	function resetInput() {
+    		$$invalidate(0, input = { en: "", rating: 0, author: { name: "" } });
     	}
 
     	const writable_props = ["onQuoteAdded"];
@@ -696,7 +702,12 @@ var app = (function () {
     		if ("onQuoteAdded" in $$props) $$invalidate(2, onQuoteAdded = $$props.onQuoteAdded);
     	};
 
-    	$$self.$capture_state = () => ({ onQuoteAdded, input, handleSubmit });
+    	$$self.$capture_state = () => ({
+    		onQuoteAdded,
+    		input,
+    		handleSubmit,
+    		resetInput
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ("onQuoteAdded" in $$props) $$invalidate(2, onQuoteAdded = $$props.onQuoteAdded);
@@ -711,6 +722,7 @@ var app = (function () {
     		input,
     		handleSubmit,
     		onQuoteAdded,
+    		resetInput,
     		input0_input_handler,
     		textarea_input_handler,
     		input1_change_input_handler

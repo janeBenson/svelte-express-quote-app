@@ -17,8 +17,8 @@ db.sequelize = sequelize
 
 
 // Models/tables
-db.authors = require('./author')(sequelize, DataTypes) 
-db.quotes = require('./quote')(sequelize, DataTypes)
+db.authors = require('./author')(db.sequelize, DataTypes) 
+db.quotes = require('./quote')(db.sequelize, DataTypes)
 
 // Relationships 
 db.authors.hasMany(db.quotes) // each author can have many quotes

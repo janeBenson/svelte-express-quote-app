@@ -9,7 +9,9 @@ const port = 3000
 app.use(cors())  
 app.use(express.json()) // auto parse incoming JSON
 
-require('./routes/quote')(app, db) // initialize routes
+// Routes
+require('./routes/author')(app, db)
+require('./routes/quote')(app, db) 
 
 app.listen(port, () => console.log(`Server is listening on port ${port}.`))
 
