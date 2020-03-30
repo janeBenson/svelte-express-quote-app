@@ -1,7 +1,8 @@
 <script>
-  export let onQuoteAdded;
+  // export let onQuoteAdded;
 
   let input; 
+
   resetInput()
 
   async function handleSubmit(event) {
@@ -10,7 +11,8 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input)
     })
-    onQuoteAdded()
+
+    // onQuoteAdded()
     resetInput() 
   }
 

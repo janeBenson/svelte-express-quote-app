@@ -1,82 +1,10 @@
 <script>
-	import AddQuoteForm from './AddQuoteForm.svelte'
-	import Quote from './Quote.svelte'
-	import Search from './Search.svelte'
+	import { Router, Link, Route, links } from "svelte-routing";
 	
-	const url = 'http://localhost:3000/api/quotes'
-	
-	const languages = [
-		{code: 'en', label: 'English'}, 
-		{code: 'gib', label: 'Gibberish'}
-	]
-	let quotes = []; // need this to overcome array error for Each block
-	let quotesFiltered = []
-	let selectedLang;
-	let expanded = false; 
-	let authors = [];
-	let selectedAuthors = [];
-	let search;
-	
-	$: quotes, search, selectedAuthors, selectedLang, setQuotesFiltered()
-
-	getQuotes()
-	
-	async function getQuotes() {
-		try {
-			const res = await fetch(url)
-			quotes = await res.json()	
-			authors = getAuthors(quotes).sort()
-			
-		} catch (error) {
-			console.log(error)
-		}	
-	}
-	
-	function getAuthors(quotes) {
-		let authors = []
-		
-		for (let i = 0; i < quotes.length; i++) {
-			if (authors.includes(quotes[i].author.name)) {
-				continue
-			} else {
-				authors.push(quotes[i].author.name)
-			}
-		}
-		return authors
-	}
-	
-	function authorFilter(quote) {
-		if (selectedAuthors.length > 0) {
-			return selectedAuthors.includes(quote.author.name)
-		}
-		return true
-	}
-	
-	function searchFilter(quote) {
-		if (search) {
-			let searchInput = search.toLowerCase()
-			return quote.author.name.toLowerCase().includes(searchInput) || quote[selectedLang].toLowerCase().includes(searchInput)		
-		} 
-		return true
-	}
-	
-	function quoteMeetsFilters(quote) {
-		return searchFilter(quote) && authorFilter(quote)
-	}
-	
-	function setQuotesFiltered() {
-		quotesFiltered = quotes.filter(quoteMeetsFilters)
-	}
-
-	async function onQuoteDelete(id) {
-		alert('Quote deleted!')
-		await getQuotes()
-	}
-
-	async function onQuoteAdded() {
-		alert('your quote has been added!')
-		await getQuotes()
-	}
+	import AddQuote from './routes/AddQuote.svelte'
+	import Home from './routes/Home.svelte'
+	import NavBar from './components/NavBar.svelte'
+	import PageHeader from './components/PageHeader.svelte'
 
 </script>
 
@@ -84,55 +12,39 @@
 	:global(body) {
 		color: #717070;
 	}
-	.heading-content {
-		vertical-align: center;
-		margin: 6px;
-	}
-	.heading-content > #page-title {
-		color: #645e64;
-	}
-	#language-dropdown > select {
-		float: right;
+
+	:global(a:hover, a:visited, a:link, a:active) {
+		text-decoration: none;
 	}
 	
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<svelte:head>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="row heading-content">
-	<div id='page-title' class="col-sm-9">
-		<h1>Programming quotes</h1>		
-	</div>
+	<!-- Bootstrap 4-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
-	<div id='language-dropdown' class="col-sm-3">
-		<select bind:value={selectedLang}>
-			{#each languages as lang}
-				<option value={lang.code}>{lang.label}</option>
-			{/each}
-		</select>			
+	<title>Quotes</title>
+</svelte:head>
+
+<div use:links>
+<Router>
+	<div class="container">
+
+		<PageHeader />
+
+		<NavBar />
+
+		<Route path="/"><Home /></Route>
+	
+		<Route path="add"><AddQuote /></Route>
+
 	</div>
+	</Router>
 </div>
-
-<select bind:value={expanded}>
-	<option value={true}>Expand All</option> 
-	<option value={false}>Collapse All</option>
-</select>			
-
-<select multiple bind:value={selectedAuthors}>
-	{#each authors as author}
-		<option value={author}>{author}</option>
-	{/each}
-</select>	
-
-<Search bind:search />
-
-<AddQuoteForm {onQuoteAdded} />
-
-<div class="quotes"> 
-	{#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes -->
-			<Quote {quote} {selectedLang} {expanded} {onQuoteDelete} />
-	{/each}
-</div>
-
-
 

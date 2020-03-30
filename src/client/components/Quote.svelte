@@ -1,6 +1,6 @@
 <script>
 	export let quote; 
-	export let selectedLang;
+	export let selectedLanguage;
 	export let expanded;
 	export let onQuoteDelete;
 	
@@ -51,7 +51,7 @@
 	</div>
 	
 	<div class="quote-contents">
-		<LongText text={quote[selectedLang]} {expanded} />
+		<LongText text={quote[selectedLanguage]} {expanded} />
 	</div>
 	
 	{#if quote.rating}
