@@ -75,11 +75,6 @@
 		await getQuotes()
 	}
 
-	async function onQuoteAdded() {
-		alert('your quote has been added!')
-		await getQuotes()
-	}
-
 </script>
 
 <style>
@@ -132,7 +127,7 @@
 </div>
 
 <div class="quotes"> 
-    {#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes -->
+    {#each quotesFiltered as quote (quote.id)} <!-- need keyed each because we are filtering quotes in UI -->
             <Quote {quote} {selectedLanguage} {expanded} {onQuoteDelete} />
     {/each}
 </div>

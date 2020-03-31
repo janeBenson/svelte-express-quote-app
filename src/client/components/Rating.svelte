@@ -16,14 +16,17 @@
 </script>
 
 <style>
+	.star {
+		margin: 2px;
+	}
+	
 	.checked {
 		color: orange;
-		margin: 2px;
 	}
 
 </style>
 
 {#each determineStars(rating) as star}
-	<span class="fa fa-star{!star.full ? '-half-o' : ''} {star.checked ? 'checked' : ''}"></span>
+	<span class="star fa fa-star{!star.full ? '-half-o' : ''} {star.checked ? 'checked' : ''}"></span>
 {/each}
 

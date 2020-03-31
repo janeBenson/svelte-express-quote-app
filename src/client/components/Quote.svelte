@@ -54,10 +54,10 @@
 		<LongText text={quote[selectedLanguage]} {expanded} />
 	</div>
 	
-	{#if quote.rating}
-	<div class="rating">	
-		<Rating rating={quote.rating} /> 
-	</div>
+	{#if quote.rating !== null }
+		<div class="rating">	
+			<Rating rating={quote.rating} /> 
+		</div>
 	{/if}
 
 	<a href='/' on:click|preventDefault={deleteQuote}><i class="fa fa-trash"></i></a>
