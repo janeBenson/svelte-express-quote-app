@@ -1,5 +1,6 @@
 <script>
-    import LanguageDropdown from '../components/LanguageDropdown.svelte'
+	import ExpandAllMenu from '../components/ExpandAllMenu.svelte'
+	import LanguageDropdown from '../components/LanguageDropdown.svelte'
     import Quote from '../components/Quote.svelte'
     import Search from '../components/Search.svelte'
 	
@@ -17,6 +18,7 @@
 	let authors = [];
 	let selectedAuthors = [];
 	let search;
+	let showAuthorDropdown = false;
 	
 	$: quotes, search, selectedAuthors, selectedLanguage, setQuotesFiltered()
 
@@ -75,6 +77,9 @@
 		await getQuotes()
 	}
 
+	function toggleAuthorDropdown() {
+		showAuthorDropdown = !showAuthorDropdown
+	}
 </script>
 
 <style>
@@ -98,28 +103,29 @@
         <Search bind:search />
     </form>
 
-    <!-- Author Multi-Select Menu -->
+    <!-- Author Dropdown -->
     <div class="dropdown">
-        <button type="button" class="btn btn-outline-secondary dropdown-toggle white-background" data-toggle="dropdown">
+        <button type="button" class="btn btn-outline-secondary dropdown-toggle white-background" on:click={toggleAuthorDropdown}>
         Authors
         </button>
-        <div class="dropdown-menu p-1">
-            {#each authors as author}
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value={author} bind:group={selectedAuthors}>
-                    {author}
-                </label>
-            </div>
-            {/each}
-        </div>
+
+		{#if showAuthorDropdown }
+			<div class="dropdown-menu show p-1">
+				{#each authors as author}
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="checkbox" class="form-check-input" value={author} bind:group={selectedAuthors}>
+							{author}
+						</label>
+					</div>
+				{/each}
+			</div>
+		{/if}
+
     </div>
 
     <!-- Expand/Collapse menu -->
-    <select bind:value={expanded}>
-        <option value={true}>Expand All</option> 
-        <option value={false}>Collapse All</option>
-    </select>
+	<ExpandAllMenu bind:expanded />
 
     <!-- Language Dropdown -->
     <LanguageDropdown {languages} bind:selectedLanguage />
@@ -131,3 +137,4 @@
             <Quote {quote} {selectedLanguage} {expanded} {onQuoteDelete} />
     {/each}
 </div>
+

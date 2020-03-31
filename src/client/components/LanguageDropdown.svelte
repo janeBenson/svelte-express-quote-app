@@ -4,10 +4,10 @@ export let selectedLanguage;
 
 </script>
 
-<div class="language-dropdown">
-    <select bind:value={selectedLanguage}>
+<form class="form-inline">
+    <select class="text-muted" bind:value={selectedLanguage}>
         {#each languages as lang}
             <option value={lang.code}>{lang.label}</option>
         {/each}
-    </select>		
-</div>
+    </select>	
+</form>	

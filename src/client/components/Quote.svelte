@@ -1,11 +1,13 @@
 <script>
+	import { fade } from 'svelte/transition';
+	
+	import Rating from './Rating.svelte'
+	import LongText from './LongText.svelte'
+
 	export let quote; 
 	export let selectedLanguage;
 	export let expanded;
 	export let onQuoteDelete;
-	
-	import Rating from './Rating.svelte'
-	import LongText from './LongText.svelte'
 
 	async function deleteQuote() {
 		try {
@@ -22,12 +24,12 @@
 
 <style>
 	.quote {
-			background-color: #eee;
-			color: #444;
-			padding: 18px;
-			margin: 15px;
-			border: none;
-			outline: none;
+		background-color: #eee;
+		color: #444;
+		padding: 18px;
+		margin: 15px;
+		border: none;
+		outline: none;
 	}
 	
 	.author {
@@ -44,7 +46,7 @@
 
 </style>
 
-<div class='quote' id={quote.id}>
+<div class='quote' id={quote.id} transition:fade|local>
 	
 	<div class="author">
 		{quote.author.name}
