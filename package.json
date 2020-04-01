@@ -5,12 +5,14 @@
     "build": "rollup -c",
     "dev-frontend": "rollup -c -w",
     "start": "sirv public",
-    "dev-backend": "nodemon src/server/index.js"
+    "dev-backend": "nodemon src/server/index.js",
+    "format": "prettier --write . "
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "nodemon": "^2.0.2",
+    "prettier": "^2.0.2",
     "rollup": "^1.20.0",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
@@ -27,8 +29,11 @@
     "sirv-cli": "^0.4.4",
     "sqlite3": "^4.1.1",
     "svelte-routing": "^1.4.2"
-  }, 
+  },
   "nodemonConfig": {
-    "ignore": ["public/*", "src/client/*"]
+    "ignore": [
+      "public/*",
+      "src/client/*"
+    ]
   }
 }

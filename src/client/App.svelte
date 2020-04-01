@@ -1,51 +1,65 @@
 <script>
-	import { Router, Link, Route, links } from "svelte-routing";
-	
-	import AddQuote from './routes/AddQuote.svelte'
-	import Home from './routes/Home.svelte'
-	import NavBar from './components/NavBar.svelte'
-	import PageHeader from './components/PageHeader.svelte'
+  import { Router, Link, Route, links } from "svelte-routing";
 
+  import AddQuote from "./routes/AddQuote.svelte";
+  import Authors from "./routes/Authors.svelte";
+  import GenerateQuote from "./routes/GenerateQuote.svelte";
+  import Home from "./routes/Home.svelte";
+  import NavBar from "./components/NavBar.svelte";
+  import PageHeader from "./components/PageHeader.svelte";
 </script>
 
 <style>
-	:global(body) {
-		color: #717070;
-	}
+  :global(body) {
+    color: #717070;
+  }
 
-	:global(a:hover, a:visited, a:link, a:active) {
-		text-decoration: none;
-	}
-	
+  :global(a:hover, a:visited, a:link, a:active) {
+    text-decoration: none;
+  }
 </style>
 
 <svelte:head>
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-	<!-- Bootstrap 4-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-	
-	<title>Quotes</title>
+  <!-- Bootstrap 4-->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous" />
+
+  <title>Quotes</title>
 
 </svelte:head>
 
 <div use:links>
-<Router>
-	<div class="container">
+  <Router>
+    <div class="container">
 
-		<PageHeader />
+      <PageHeader />
 
-		<NavBar />
+      <NavBar />
 
-		<Route path="/"><Home /></Route>
-	
-		<Route path="add"><AddQuote /></Route>
+      <Route path="/">
+        <Home />
+      </Route>
 
-	</div>
-	</Router>
+      <Route path="add">
+        <AddQuote />
+      </Route>
+
+      <Route path="generate">
+        <GenerateQuote />
+      </Route>
+
+      <Route path="authors">
+        <Authors />
+      </Route>
+
+    </div>
+  </Router>
 </div>
-

@@ -1,18 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-
-  const Quote = sequelize.define('quote', {
+  const Quote = sequelize.define("quote", {
     gib: {
-      type: DataTypes.TEXT, 
-      allowNull: true
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     en: {
-        type: DataTypes.TEXT, 
-        allowNull: false
-      },
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     rating: {
-        type: DataTypes.DECIMAL,
-        allowNull: true
-    }
-  })
-  return Quote
-}
+      type: DataTypes.DECIMAL,
+      allowNull: true,
+    },
+  });
+  return Quote;
+};
