@@ -1,13 +1,12 @@
 <script>
-  import { Router, Link, Route, links } from "svelte-routing";
+  import { Router, Link, Route, links } from 'svelte-routing'
 
-  import AddQuote from "./routes/AddQuote.svelte";
-  import Authors from "./routes/Authors.svelte";
-  import GenerateQuote from "./routes/GenerateQuote.svelte";
-  import Home from "./routes/Home.svelte";
-  import NavBar from "./components/NavBar.svelte";
-  import PageHeader from "./components/PageHeader.svelte"; 
-
+  import AddQuote from './routes/AddQuote.svelte'
+  import Authors from './routes/Authors.svelte'
+  import GenerateQuote from './routes/GenerateQuote.svelte'
+  import Home from './routes/Home.svelte'
+  import NavBar from './components/NavBar.svelte'
+  import PageHeader from './components/PageHeader.svelte'
 </script>
 
 <style>

@@ -1,86 +1,90 @@
 <script>
-  import ExpandAllMenu from "../components/ExpandAllMenu.svelte";
-  import LanguageDropdown from "../components/LanguageDropdown.svelte";
-  import Quote from "../components/Quote.svelte";
-  import Search from "../components/Search.svelte";
+  import ExpandAllMenu from '../components/ExpandAllMenu.svelte'
+  import LanguageDropdown from '../components/LanguageDropdown.svelte'
+  import Quote from '../components/Quote.svelte'
+  import Search from '../components/Search.svelte'
 
-  const url = "http://localhost:3000/api/quotes";
+  const url = 'http://localhost:3000/api/quotes'
 
   const languages = [
-    { code: "en", label: "English" },
-    { code: "gib", label: "Gibberish" }
-  ];
+    { code: 'en', label: 'English' },
+    { code: 'gib', label: 'Gibberish' },
+  ]
 
-  let quotes = [];
-  let quotesFiltered = [];
-  let selectedLanguage = "en";
-  let expanded = false;
-  let authors = [];
-  let selectedAuthors = [];
-  let search;
-  let showAuthorDropdown = false;
+  let quotes = []
+  let quotesFiltered = []
+  let selectedLanguage = 'en'
+  let expanded = false
+  let authors = []
+  let selectedAuthors = []
+  let search
+  let showAuthorDropdown = false
 
-  $: quotes, search, selectedAuthors, selectedLanguage, setQuotesFiltered();
+  $: quotes, search, selectedAuthors, selectedLanguage, setQuotesFiltered()
 
-  getQuotes();
+  getQuotes()
 
   async function getQuotes() {
     try {
-      const res = await fetch(url);
-      quotes = await res.json();
-      authors = getAuthors(quotes);
+      const res = await fetch(url)
+      quotes = await res.json()
+      authors = getAuthors(quotes)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   function getAuthors(quotes) {
-    let authors = [];
+    let authors = []
 
     for (let i = 0; i < quotes.length; i++) {
       if (authors.includes(quotes[i].author.name)) {
-        continue;
+        continue
       } else {
-        authors.push(quotes[i].author.name);
+        authors.push(quotes[i].author.name)
       }
     }
 
-    return authors.sort();
+    return authors.sort()
   }
 
   function authorFilter(quote) {
     if (selectedAuthors.length > 0) {
-      return selectedAuthors.includes(quote.author.name);
+      return selectedAuthors.includes(quote.author.name)
     }
-    return true;
+    return true
   }
 
   function searchFilter(quote) {
     if (search) {
-      let searchInput = search.toLowerCase();
+      let searchInput = search.toLowerCase()
       return (
         quote.author.name.toLowerCase().includes(searchInput) ||
         quote[selectedLanguage].toLowerCase().includes(searchInput)
-      );
+      )
     }
-    return true;
+    return true
   }
 
   function quoteMeetsFilters(quote) {
-    return searchFilter(quote) && authorFilter(quote);
+    return searchFilter(quote) && authorFilter(quote)
   }
 
   function setQuotesFiltered() {
-    quotesFiltered = quotes.filter(quoteMeetsFilters);
+    quotesFiltered = quotes.filter(quoteMeetsFilters)
   }
 
-  async function onQuoteDelete(id) {
-    alert("Quote deleted!");
-    await getQuotes();
+  async function onQuoteDelete() {
+    alert('Quote deleted!')
+    await getQuotes()
+  }
+
+  async function onQuoteUpdate() {
+    await getQuotes()
   }
 
   function toggleAuthorDropdown() {
-    showAuthorDropdown = !showAuthorDropdown;
+    showAuthorDropdown = !showAuthorDropdown
   }
 </script>
 
@@ -142,6 +146,11 @@
 <div class="quotes">
   {#each quotesFiltered as quote (quote.id)}
     <!-- need keyed each because we are filtering quotes in UI -->
-    <Quote {quote} {selectedLanguage} {expanded} {onQuoteDelete} />
+    <Quote
+      {quote}
+      {selectedLanguage}
+      {expanded}
+      {onQuoteDelete}
+      {onQuoteUpdate} />
   {/each}
 </div>

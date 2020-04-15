@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Quote = sequelize.define("quote", {
+  const Quote = sequelize.define('quote', {
     gib: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -7,11 +7,14 @@ module.exports = (sequelize, DataTypes) => {
     en: {
       type: DataTypes.TEXT,
       allowNull: false,
+      set(value) {
+        this.setDataValue('en', value.trim())
+      },
     },
     rating: {
       type: DataTypes.DECIMAL,
       allowNull: true,
     },
-  });
-  return Quote;
-};
+  })
+  return Quote
+}

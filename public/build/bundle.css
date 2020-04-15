@@ -1,59 +1,13 @@
-body {
-  color: #717070;
-}
-a:hover,
-a:visited,
-a:link,
-a:active {
-  text-decoration: none;
-}
-form.svelte-126g4jm {
-  border-radius: 17px;
-  background-color: #f4f4f4;
-}
-nav.svelte-1p0iwbe {
-  border-bottom: 1px solid #e5e5e5;
-}
-.filter-bar.svelte-1e278co {
-  background-color: #f4f4f4;
-  border-bottom: 1px solid #e5e5e5;
-}
-.white-background.svelte-1e278co {
-  background-color: white;
-}
-.page-header.svelte-1lp3vqv {
-  border-bottom: 1px solid #e5e5e5;
-}
-.page-header-title.svelte-1lp3vqv {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 2.25rem;
-  font-weight: bold;
-}
-.quote.svelte-niz1n {
-  background-color: #eee;
-  color: #444;
-  padding: 18px;
-  margin: 15px;
-  border: none;
-  outline: none;
-}
-.author.svelte-niz1n {
-  font-size: 30px;
-}
-.quote-contents.svelte-niz1n {
-  padding: 2px;
-}
-.rating.svelte-niz1n {
-  font-size: 18px;
-}
-.star.svelte-67m09p {
-  margin: 2px;
-}
-.checked.svelte-67m09p {
-  color: orange;
-}
-.card.svelte-14l1osp {
-  min-width: 200px;
-}
+body{color:#717070}a:hover, a:visited, a:link, a:active{text-decoration:none}
+.form-wrapper.svelte-vkbi44{border-radius:17px;background-color:#f4f4f4}
+nav.svelte-1xfn00{border-bottom:1px solid #e5e5e5}
+.filter-bar.svelte-1e278co{background-color:#f4f4f4;border-bottom:1px solid #e5e5e5}.white-background.svelte-1e278co{background-color:white}
+.page-header.svelte-1fw5rja{border-bottom:1px solid #e5e5e5}.page-header-title.svelte-1fw5rja{font-family:'Playfair Display', Georgia, 'Times New Roman', serif;font-size:2.25rem;font-weight:bold}
+.quote.svelte-niz1n{background-color:#eee;color:#444;padding:18px;margin:15px;border:none;outline:none}.author.svelte-niz1n{font-size:30px}.quote-contents.svelte-niz1n{padding:2px}.rating.svelte-niz1n{font-size:18px}
+.modal-dialog.svelte-1e829g,.modal-content.svelte-1e829g{height:80%}.modal-body.svelte-1e829g{max-height:calc(100% - 120px);overflow-y:auto}.no-scroll{overflow:hidden}
+.star.svelte-1eglfjt{margin:2px}.checked.svelte-1eglfjt{color:orange}
+.modal-body.svelte-11aklun{max-height:calc(100% - 120px);overflow-y:auto}
+.modal-body.svelte-11aklun{max-height:calc(100% - 120px);overflow-y:auto}
+.modal-body.svelte-11aklun{max-height:calc(100% - 120px);overflow-y:auto}
 
 /*# sourceMappingURL=bundle.css.map */

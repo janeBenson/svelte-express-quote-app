@@ -1,20 +1,27 @@
 <script>
-  export let author;
-  export let image;
+  import Modal from './Modal.svelte'
+  import Rating from './Rating.svelte'
+
+  export let author
+  export let image
+
+  let quotes = []
+
+  let showModal = false
 
   async function getAuthorQuotes() {
     try {
-      let quoteData = await fetch(`/api/quotes?authorId=${author.id}`);
-      quoteData = await quoteData.json();
-      return quoteData;
+      let quoteData = await fetch(`/api/quotes?authorId=${author.id}`)
+      quoteData = await quoteData.json()
+      return quoteData
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   async function handleClick() {
-    const quotes = await getAuthorQuotes();
-    console.log(quotes);
+    quotes = await getAuthorQuotes()
+    showModal = true
   }
 </script>
 
@@ -34,3 +41,19 @@
     </button>
   </div>
 </div>
+
+<Modal bind:showModal>
+  <span slot="title">{author.name}'s Quotes</span>
+  <span slot="body">
+    {#each quotes as quote}
+      <div class="jumbotron mb-3 p-3">
+        <p>"{quote.en}"</p>
+        {#if quote.rating}
+          <p>
+            <Rating rating={quote.rating} />
+          </p>
+        {/if}
+      </div>
+    {/each}
+  </span>
+</Modal>
